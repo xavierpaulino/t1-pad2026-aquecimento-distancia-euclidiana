@@ -126,8 +126,6 @@ void squared_distances(const double* q,
     }
 }
 
-// Read the output after a run so the computed values remain observable to the program.
-// This function is deliberately outside the timed region.
 double checksum(const std::vector<double>& values) {
     long double acc = 0.0L;
     for (double v : values) acc += static_cast<long double>(v);
@@ -144,7 +142,6 @@ void fill_data(std::vector<double>& q,
     for (double& v : x) v = dist(rng);
     std::fill(distances.begin(), distances.end(), 0.0);
 }
-
 
 void run_timer_probe(std::size_t samples) {
     if (samples == 0) fail("timer-samples must be greater than zero");
@@ -230,7 +227,7 @@ void write_csv(const Options& o,
     }
 }
 
-} // namespace
+} 
 
 int main(int argc, char** argv) {
     try {
@@ -247,8 +244,7 @@ int main(int argc, char** argv) {
         if (o.t == 0) fail("T must be greater than zero");
         if (o.repetitions == 0) fail("repetitions must be greater than zero");
         if (o.n > std::numeric_limits<std::size_t>::max() / o.t) fail("N*T overflows size_t");
-
-        // Allocation and full initialization are completed before any measured run.
+        
         std::vector<double> q(o.t);
         std::vector<double> x(o.n * o.t);
         std::vector<double> distances(o.n);
@@ -256,8 +252,7 @@ int main(int argc, char** argv) {
 
         volatile double warmup_sink = 0.0;
         for (std::size_t w = 0; w < o.warmup; ++w) {
-            squared_distances(q.data(), x.data(), distances.data(), o.n, o.t);
-            // Force each warm-up result to be observed without including this read in timing.
+            squared_distances(q.data(), x.data(), distances.data(), o.n, o.t);            
             warmup_sink = warmup_sink + distances[w % o.n];
         }
         (void)warmup_sink;
@@ -270,13 +265,11 @@ int main(int argc, char** argv) {
             const std::uint64_t start = monotonic_raw_ns();
             squared_distances(q.data(), x.data(), distances.data(), o.n, o.t);
             const std::uint64_t end = monotonic_raw_ns();
-            elapsed.push_back(end - start);
-            // Observe one result after timing so every measured invocation is semantically live.
+            elapsed.push_back(end - start);            
             measured_sink = measured_sink + distances[r % o.n];
         }
         (void)measured_sink;
-
-        // Deliberately outside the timed region.
+        
         const double final_checksum = checksum(distances);
         if (!std::isfinite(final_checksum)) fail("non-finite checksum; numerical result is invalid");
 
