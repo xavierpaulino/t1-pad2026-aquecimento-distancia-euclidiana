@@ -10,7 +10,7 @@ D(q, x_i) = Σ_j (q_j - x_ij)²
 
 para cada vetor do conjunto.
 
-A implementação separa explicitamente a alocação de memória e a inicialização
+A implementação separa a alocação de memória e a inicialização
 dos dados da região cronometrada. Somente o cálculo das distâncias e o
 armazenamento dos resultados fazem parte da aferição de tempo.
 
@@ -33,11 +33,6 @@ Ferramentas opcionais para análise complementar:
 
 - `perf`;
 - `lscpu`.
-
-Em sistemas Ubuntu/Debian, as dependências de sistema podem ser instaladas com:
-
-    sudo apt update
-    sudo apt install build-essential util-linux linux-tools-common linux-tools-generic
 
 ## 2. Clonar o repositório
 
