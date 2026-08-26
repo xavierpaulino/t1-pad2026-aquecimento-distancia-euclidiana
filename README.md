@@ -38,10 +38,8 @@ Ferramentas opcionais para análise complementar:
 
 Clone o repositório e acesse seu diretório:
 
-    git clone <URL-DO-REPOSITORIO>
-    cd vector-distance
-
-Substitua `<URL-DO-REPOSITORIO>` pelo endereço deste repositório no GitHub.
+    git clone https://github.com/xavierpaulino/t1-pad2026-aquecimento-distancia-euclidiana/
+    cd t0_vector-distance
 
 ## 3. Criar o ambiente Conda
 
@@ -75,16 +73,15 @@ Compile a versão otimizada do benchmark:
     make release
 
 As opções de compilação utilizadas no experimento estão definidas no
-`Makefile`. A versão otimizada utiliza, entre outras opções:
+`Makefile`. Esta versão utiliza, entre outras opções:
 
     -O3
     -march=native
 
-A opção `-march=native` faz com que o código seja otimizado para a arquitetura
-da máquina na qual a compilação é realizada. Por esse motivo, o processador e
+A opção -march=native faz com que o código seja compilado para a arquitetura da máquina em que o processo é realizado. Por esse motivo, o processador e
 as opções de compilação devem ser registrados juntamente com os resultados.
 
-## 5. Verificar a corretude da implementação
+## 5. Verificar a implementação
 
 Antes de realizar qualquer aferição de desempenho, execute o teste interno:
 
@@ -94,7 +91,7 @@ Uma execução bem-sucedida deve apresentar:
 
     SELF_TEST_OK
 
-A campanha experimental não deve ser executada caso esse teste falhe.
+A execução experimental não deve prosseguir caso esse teste falhe.
 
 ## 6. Gerar o relatório de vetorização
 
@@ -113,7 +110,7 @@ dos tempos observados.
 
 ## 7. Calibrar o experimento
 
-Antes da campanha experimental oficial, execute:
+Antes da dos experimentos finais, execute:
 
     python scripts/calibrate_n.py
 
@@ -126,7 +123,6 @@ A calibração também:
 - identifica os CPUs lógicos permitidos ao processo;
 - considera a topologia dos cores físicos;
 - seleciona deterministicamente um CPU lógico;
-- evita o CPU 0 quando existe outro core físico disponível;
 - registra o CPU selecionado;
 - caracteriza o mecanismo de temporização;
 - mede a menor configuração, correspondente a `T = 32`;
@@ -143,7 +139,7 @@ A calibração produz os arquivos:
     config/calibration.json
 
 Esses arquivos devem ser preservados, pois documentam a configuração utilizada
-na campanha experimental.
+na execução experimental.
 
 ### Configuração obtida na máquina do experimento de referência
 
@@ -177,7 +173,7 @@ do tempo mediano da menor configuração.
 
 ## 8. Inspecionar a configuração calibrada
 
-Antes de iniciar a campanha experimental, verifique a configuração:
+Antes de iniciar a execução experimental, verifique a configuração:
 
     cat config/experiment.conf
 
@@ -186,17 +182,17 @@ A política de seleção do CPU também pode ser inspecionada com:
     python scripts/cpu_selection.py --json
 
 Depois da calibração, `N` e o CPU selecionado devem permanecer constantes
-durante toda a campanha experimental.
+durante toda a execução experimental.
 
 Eles não devem ser alterados posteriormente em função dos resultados obtidos.
 
-## 9. Executar a campanha experimental
+## 9. Executar os experimentos
 
 Execute:
 
     ./scripts/run_experiments.sh
 
-A campanha avalia os seguintes tamanhos de vetor:
+Os experimentos avaliam os seguintes tamanhos de vetor:
 
     T = 32
     T = 64
@@ -232,13 +228,13 @@ variabilidade experimental.
 As execuções de aquecimento (`warm-up`) são realizadas antes das observações
 consideradas na análise e não fazem parte dos tempos reportados.
 
-A campanha utiliza uma ordem intercalada dos tamanhos de vetor para reduzir a
+Os experimentos utilizam uma ordem intercalada dos tamanhos de vetor para reduzir a
 associação sistemática entre um determinado valor de `T` e o momento temporal
-da campanha.
+da execução.
 
 ## 10. Analisar os resultados
 
-Após o término da campanha experimental, execute:
+Após o término da execução experimental, execute:
 
     python scripts/analyze_results.py
 
@@ -251,7 +247,7 @@ Em seguida, gere os gráficos:
 
 ## 11. Arquivos de resultados
 
-Entre os arquivos produzidos pela campanha e pela análise estão:
+Entre os arquivos produzidos pelos experimentos e pela análise estão:
 
     data/raw_measurements.csv
     data/measurements_with_metrics.csv
@@ -259,7 +255,7 @@ Entre os arquivos produzidos pela campanha e pela análise estão:
 
 ### `raw_measurements.csv`
 
-Contém as observações individuais de tempo obtidas durante a campanha.
+Contém as observações individuais de tempo obtidas durante a execução.
 
 Esse arquivo representa os dados experimentais brutos e deve ser preservado
 sem alterações.
@@ -333,7 +329,7 @@ Após clonar o repositório, uma execução completa pode ser realizada com:
     python scripts/analyze_results.py
     python scripts/plot_results.py
 
-Recomenda-se executar a campanha em uma máquina sem outras cargas
+Recomenda-se executar os experimentos em uma máquina sem outras cargas
 computacionalmente intensivas concorrentes.
 
 ## 14. Reprodutibilidade
@@ -395,10 +391,10 @@ as observações experimentais originais.
 
 ## 16. Observações metodológicas importantes
 
-O valor de `N` é determinado antes da campanha experimental e permanece
+O valor de `N` é determinado antes da execução experimental e permanece
 constante para todos os valores de `T`.
 
-A afinidade de CPU também é determinada antes da campanha e permanece
+A afinidade de CPU também é determinada antes da execução e permanece
 inalterada durante o experimento.
 
 A seleção do CPU utiliza a topologia do processador e não realiza testes em
