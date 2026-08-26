@@ -1,4 +1,4 @@
-# Benchmark de Distância entre Vetores
+# T1: Aquecimento - Distância Quadrática entre Vetores
 
 Este repositório contém a implementação e a infraestrutura experimental utilizadas
 para avaliar o desempenho do cálculo da distância quadrática entre um vetor de
