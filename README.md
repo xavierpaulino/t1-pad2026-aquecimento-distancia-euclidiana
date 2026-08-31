@@ -112,7 +112,7 @@ dos tempos observados.
 
 Antes da dos experimentos finais, execute:
 
-    python scripts/calibrate_n.py
+    python3 scripts/calibrate_n.py
 
 A calibração determina um valor adequado e constante de `N` para a máquina
 utilizada, considerando principalmente a memória necessária para executar a
