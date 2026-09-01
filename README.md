@@ -179,7 +179,7 @@ Antes de iniciar a execução experimental, verifique a configuração:
 
 A política de seleção do CPU também pode ser inspecionada com:
 
-    python scripts/cpu_selection.py --json
+    python3 scripts/cpu_selection.py --json
 
 Depois da calibração, `N` e o CPU selecionado devem permanecer constantes
 durante toda a execução experimental.
@@ -236,14 +236,14 @@ da execução.
 
 Após o término da execução experimental, execute:
 
-    python scripts/analyze_results.py
+    python3 scripts/analyze_results.py
 
 Esse script calcula os índices de desempenho e as estatísticas derivadas das
 aferições brutas.
 
 Em seguida, gere os gráficos:
 
-    python scripts/plot_results.py
+    python3 scripts/plot_results.py
 
 ## 11. Arquivos de resultados
 
@@ -320,14 +320,14 @@ Após clonar o repositório, uma execução completa pode ser realizada com:
     make test
     make vectorization
 
-    python scripts/calibrate_n.py
+    python3 scripts/calibrate_n.py
 
     cat config/experiment.conf
 
     ./scripts/run_experiments.sh
 
-    python scripts/analyze_results.py
-    python scripts/plot_results.py
+    python3 scripts/analyze_results.py
+    python3 scripts/plot_results.py
 
 Recomenda-se executar os experimentos em uma máquina sem outras cargas
 computacionalmente intensivas concorrentes.
@@ -362,7 +362,7 @@ Existem dois procedimentos distintos.
 
 Ao executar o benchmark em outra máquina, deve-se realizar novamente:
 
-    python scripts/calibrate_n.py
+    python3 scripts/calibrate_n.py
 
 Isso permite selecionar `N` e CPU de acordo com as características da nova
 plataforma.
